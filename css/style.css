@@ -181,47 +181,60 @@ main {
 /* ── Hero 覆蓋區 RWD ── */
 @media (max-width: 768px) {
     .image-overlay img {
-        max-height: 320px;
+        max-height: 380px;
+        min-height: 280px;
     }
 
     .overlay-text {
-        padding: 1.2rem 1.25rem;
-        max-width: 92%;
+        width: 88%;
+        max-width: 88%;
+        padding: 1rem 1.2rem;
         border-radius: var(--radius-md);
+        box-sizing: border-box;
+        white-space: normal;
+        word-break: keep-all;
+        overflow-wrap: break-word;
     }
 
     .overlay-text h2 {
-        font-size: clamp(1.2rem, 6vw, 1.8rem);
+        font-size: clamp(1.1rem, 5.5vw, 1.6rem);
         margin-bottom: 0.4rem;
+        line-height: 1.4;
+        white-space: normal;
+        word-break: keep-all;
     }
 
     .overlay-text p {
-        font-size: clamp(0.8rem, 3.5vw, 0.95rem);
-        margin-bottom: 0.9rem;
+        font-size: clamp(0.78rem, 3.2vw, 0.9rem);
+        margin-bottom: 0.75rem;
+        line-height: 1.6;
+        white-space: normal;
+        word-break: keep-all;
     }
 
     .overlay-text .btn-cta {
-        font-size: 0.72rem;
-        padding: 0.5rem 1.25rem;
+        font-size: 0.7rem;
+        padding: 0.45rem 1.1rem;
     }
 }
 
 @media (max-width: 480px) {
     .image-overlay img {
-        max-height: 260px;
+        max-height: 320px;
+        min-height: 240px;
     }
 
     .overlay-text {
-        padding: 1rem;
-        max-width: 95%;
+        width: 92%;
+        max-width: 92%;
+        padding: 0.9rem 1rem;
     }
 
     .overlay-text h2 {
-        font-size: clamp(1rem, 7vw, 1.4rem);
+        font-size: clamp(1rem, 5vw, 1.3rem);
     }
 
     .overlay-text p {
-        font-size: 0.8rem;
-        opacity: 0.85;
+        font-size: clamp(0.75rem, 3vw, 0.85rem);
     }
 }
