@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商品介紹｜綠行選品</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/components.css" rel="stylesheet">
+</head>
+
+<body data-page="products">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html" id="nav-brand">綠行選品</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" data-nav="home" href="index.html" id="nav-home">首頁</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" data-nav="products" href="products.html" id="nav-products"
+                            aria-current="page">商品介紹</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-nav="redeem" href="redeem.html" id="nav-redeem">兌換商品</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-nav="cart" href="cart.html" id="nav-cart">購物車</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-nav="sell" href="sell.html" id="nav-sell">上架</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-nav="profile" href="profile.html" id="nav-profile">個人資料</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto align-items-lg-center flex-wrap gap-2">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false" data-i18n="nav.language">語言</a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+                            <li><a class="dropdown-item" href="#" data-set-lang="zh">中文</a></li>
+                            <li><a class="dropdown-item" href="#" data-set-lang="en">English</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item py-1 py-lg-0">
+                        <button type="button" class="btn btn-sm btn-outline-success text-nowrap" id="nav-auth-btn">登入</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mt-4 mb-5">
+        <h1 class="section-heading h3 mb-4">商品介紹</h1>
+        <div class="row product-grid">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <img src="picture/薯條.jpg" class="card-img-top" alt="薯條">
+                    <div class="card-body">
+                        <h2 class="card-title h5">薯條</h2>
+                        <p class="card-text text-muted small">香脆的黃金薯條，絕對是最佳小吃選擇。</p>
+                        <p class="card-text small mb-0">價格: $40 商品代號: 0001</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <img src="picture/飲料.jpg" class="card-img-top" alt="飲料">
+                    <div class="card-body">
+                        <h2 class="card-title h5">飲料</h2>
+                        <p class="card-text text-muted small">各式冰涼飲品，為你帶來清涼感受。</p>
+                        <p class="card-text small mb-0">價格: $40 商品代號: 0002</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <img src="picture/漢堡.v2" class="card-img-top" alt="套餐">
+                    <div class="card-body">
+                        <h2 class="card-title h5">套餐</h2>
+                        <p class="card-text text-muted small">包含薯條、飲料與美味漢堡的超值套餐。</p>
+                        <p class="card-text small mb-0">價格: $280 商品代號: 0003</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <img src="picture/鑰匙圈.jpg" class="card-img-top" alt="鑰匙圈">
+                    <div class="card-body">
+                        <h2 class="card-title h5">鑰匙圈</h2>
+                        <p class="card-text text-muted small">精緻可愛的鑰匙圈，是絕佳的紀念品。</p>
+                        <p class="card-text small mb-0">價格: $130 商品代號: 0004</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <img src="picture/水壺.jpg" class="card-img-top" alt="水壺">
+                    <div class="card-body">
+                        <h2 class="card-title h5">水壺</h2>
+                        <p class="card-text text-muted small">環保又實用，適合日常與戶外活動使用。</p>
+                        <p class="card-text small mb-0">價格: $250 商品代號: 0005</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <img src="picture/雨傘.jpg" class="card-img-top" alt="雨傘">
+                    <div class="card-body">
+                        <h2 class="card-title h5">雨傘</h2>
+                        <p class="card-text text-muted small">高品質的雨傘，兼具耐用與時尚設計。</p>
+                        <p class="card-text small mb-0">價格: $390 商品代號: 0006</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="app-toast"></div>
+
+    <footer class="site-footer text-center py-4">
+        <div class="container">
+            <p class="text-muted small mb-0">&copy; 2026 綠行選品</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/greenmart-core.js"></script>
+    <script src="js/products.js"></script>
+</body>
+
+</html>

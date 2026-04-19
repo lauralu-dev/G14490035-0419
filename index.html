@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESG 永續選品｜首頁</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/components.css" rel="stylesheet">
+</head>
+
+<body data-page="home">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html" id="nav-brand">綠行選品</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-nav="home" href="index.html" id="nav-home"
+                            aria-current="page">首頁</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-nav="products" href="products.html" id="nav-products">商品介紹</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-nav="redeem" href="redeem.html" id="nav-redeem">兌換商品</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-nav="cart" href="cart.html" id="nav-cart">購物車</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-nav="sell" href="sell.html" id="nav-sell">上架</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-nav="profile" href="profile.html" id="nav-profile">個人資料</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto align-items-lg-center flex-wrap gap-2">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false" data-i18n="nav.language">語言</a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+                            <li><a class="dropdown-item" href="#" data-set-lang="zh">中文</a></li>
+                            <li><a class="dropdown-item" href="#" data-set-lang="en">English</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item py-1 py-lg-0">
+                        <button type="button" class="btn btn-sm btn-outline-success text-nowrap" id="nav-auth-btn">登入</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mt-4">
+        <div class="image-overlay mt-3">
+            <img src="picture/index.webp" alt="" class="img-fluid rounded">
+            <div class="overlay-text">
+                <h2 id="welcome-text">永續生活，從每一次消費開始</h2>
+                <p id="description-text">選購 ESG 相關商品累積綠點，兌換更多永續好物與公益回饋</p>
+            </div>
+        </div>
+
+        <div class="container mt-5 new-section" data-aos="fade-up">
+            <div class="row align-items-center">
+                <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <img src="picture/rollercoaster.jpg" alt="" class="img-fluid rounded shadow-sm">
+                </div>
+                <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <span class="points-badge" id="badge-esg">Environment · Social · Governance</span>
+                    <h3 class="section-heading" id="esg1">精選 ESG 商品，看得見的責任</h3>
+                    <p id="esg2"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="container mt-5 new-section" data-aos="fade-up">
+            <div class="row align-items-center">
+                <div class="col-md-6 order-md-2" data-aos="fade-up" data-aos-delay="100">
+                    <img src="picture/carousel.jpg" alt="" class="img-fluid rounded shadow-sm">
+                </div>
+                <div class="col-md-6 order-md-1" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="section-heading" id="points1">購物累積綠點，兌換更聰明</h3>
+                    <p id="points2"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="container mt-5 new-section" data-aos="fade-up">
+            <div class="row align-items-center">
+                <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <img src="picture/food.avif" alt="" class="img-fluid rounded shadow-sm">
+                </div>
+                <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="section-heading" id="local1">食農與在地，低碳日常提案</h3>
+                    <p id="local2"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="container mt-5 new-section" data-aos="fade-up">
+            <div class="row align-items-center">
+                <div class="col-md-6 order-md-2" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="section-heading" id="redeem1">兌換專區：點數變成下一個好的行動</h3>
+                    <p id="redeem2"></p>
+                </div>
+                <div class="col-md-6 order-md-1" data-aos="fade-up" data-aos-delay="200">
+                    <img src="picture/souvenir.jfif" alt="" class="img-fluid rounded shadow-sm">
+                </div>
+            </div>
+        </div>
+
+        <section id="browse-products" class="mt-5 mb-5" data-aos="fade-up">
+            <h2 class="section-heading mb-3" id="browse-title">商品瀏覽</h2>
+            <p class="text-muted" id="browse-hint">更多品項見商品介紹頁（圖片可日後替換）。</p>
+            <div class="row g-3 product-grid">
+                <div class="col-md-4">
+                    <a href="products.html" class="text-decoration-none text-reset">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <img src="picture/薯條.jpg" class="card-img-top" alt="">
+                            <div class="card-body">
+                                <p class="card-text small text-muted mb-0">薯條 · $40</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <a href="products.html" class="text-decoration-none text-reset">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <img src="picture/飲料.jpg" class="card-img-top" alt="">
+                            <div class="card-body">
+                                <p class="card-text small text-muted mb-0">飲料 · $40</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <a href="products.html" class="text-decoration-none text-reset">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <img src="picture/水壺.jpg" class="card-img-top" alt="">
+                            <div class="card-body">
+                                <p class="card-text small text-muted mb-0">水壺 · $250</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer text-center py-4">
+        <div class="container">
+            <div class="social-icons mb-2">
+                <a href="#"><img src="https://img.icons8.com/ios-filled/24/000000/facebook-new.png" alt="Facebook" /></a>
+                <a href="#"><img src="https://img.icons8.com/ios-filled/24/000000/line-me.png" alt="LINE" /></a>
+                <a href="#"><img src="https://img.icons8.com/ios-filled/24/000000/instagram-new.png" alt="Instagram" /></a>
+            </div>
+            <p class="text-muted small mb-0">&copy; 2026 綠行選品 · ESG 永續電商示範</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="js/greenmart-core.js"></script>
+    <script>
+        (async function () {
+            const lang = GreenMart.getLang();
+            const t = await GreenMart.loadTranslations(lang);
+            GreenMart.applyNavLabels(t);
+            GreenMart.wireNavLang();
+            GreenMart.setActiveNav();
+            GreenMart.attachAuthNav(t);
+            document.title = t.home.title;
+            function set(id, text) {
+                const node = document.getElementById(id);
+                if (node) node.textContent = text;
+            }
+            set('welcome-text', t.home.welcome);
+            set('description-text', t.home.description);
+            set('badge-esg', t.home.badgeEsg);
+            set('esg1', t.home.esg1);
+            set('esg2', t.home.esg2);
+            set('points1', t.home.points1);
+            set('points2', t.home.points2);
+            set('local1', t.home.local1);
+            set('local2', t.home.local2);
+            set('redeem1', t.home.redeem1);
+            set('redeem2', t.home.redeem2);
+            set('browse-title', t.home.browseTitle);
+            set('browse-hint', t.home.browseHint);
+            if (typeof AOS !== 'undefined') {
+                AOS.init({ duration: 1000, easing: 'ease-in-out', once: false });
+            }
+        })();
+    </script>
+</body>
+
+</html>
