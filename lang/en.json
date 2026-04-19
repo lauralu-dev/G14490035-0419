@@ -1,0 +1,58 @@
+{
+    "brand": "GreenPath Select",
+    "nav": {
+        "home": "Home",
+        "products": "Products",
+        "redeem": "Redeem",
+        "cart": "Cart",
+        "sell": "Sell",
+        "profile": "Profile",
+        "language": "Language",
+        "authLogin": "Sign in",
+        "authLogout": "Sign out"
+    },
+    "products": {
+        "title": "Products | GreenPath Select"
+    },
+    "redeemPage": {
+        "title": "Redeem & activity | GreenPath Select",
+        "heading": "Member ID, points & transactions"
+    },
+    "home": {
+        "title": "ESG Shop | Home",
+        "welcome": "Sustainable living starts with every purchase",
+        "description": "Shop ESG-focused products to earn green points and redeem more sustainable goods and giving opportunities",
+        "badgeEsg": "Environment · Social · Governance",
+        "esg1": "Curated ESG products you can stand behind",
+        "esg2": "We select items aligned with environmental care, social fairness, and transparent governance—from reduced packaging and fair trade to carbon footprint disclosure—so your spending matches your values. Every order supports a more sustainable supply chain.",
+        "points1": "Earn green points, redeem with purpose",
+        "points2": "Members earn green points based on purchase amount and product type (see product pages and campaign notices for rules). Points can be redeemed for selected sustainable items, charity partnerships, or exclusive perks.",
+        "local1": "Food, farming, and local—everyday low-carbon choices",
+        "local2": "From organic and food-waste reduction to local growers and plant-forward options, we want meals to be part of your carbon-light routine. These categories often earn bonus green points for you and your household.",
+        "redeem1": "Redeem: turn points into the next good action",
+        "redeem2": "Check your balance and redemption history in Profile. When Firebase is connected, you’ll see points, history, and a simple personal impact summary.",
+        "browseTitle": "Browse",
+        "browseHint": "See the products page for the full list (you can replace images later)."
+    },
+    "sell": {
+        "title": "Sell | GreenPath Select",
+        "heading": "List a sustainable product",
+        "lead": "Fill in product details here (writes to the database once Firebase is wired)."
+    },
+    "cart": {
+        "title": "Cart | GreenPath Select",
+        "heading": "Shopping cart",
+        "empty": "Your cart is empty. Browse the home page to shop."
+    },
+    "profile": {
+        "title": "Profile | GreenPath Select",
+        "heading": "Profile & green points",
+        "lead": "After sign-in, view your point balance and order history here."
+    },
+    "login": {
+        "title": "Sign in | GreenPath Select",
+        "heading": "Sign in or register",
+        "lead": "Email and social sign-in will appear here once Firebase Authentication is enabled.",
+        "demoBtn": "Demo: mark as signed in (local)"
+    }
+}

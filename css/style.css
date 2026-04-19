@@ -1,0 +1,82 @@
+/* 綠行選品 — 共用樣式 */
+:root {
+    --esg-forest: #1b4332;
+    --esg-sage: #40916c;
+    --esg-mist: #d8f3dc;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+.navbar-brand {
+    font-weight: 600;
+    color: var(--esg-forest) !important;
+}
+
+.image-overlay {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+.image-overlay img {
+    width: 100%;
+    height: auto;
+    opacity: 0.85;
+    margin-bottom: 20px;
+    object-fit: cover;
+    max-height: 420px;
+}
+
+.overlay-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(27, 67, 50, 0.72);
+    padding: 1.25rem 1.75rem;
+    border-radius: 12px;
+    max-width: min(92%, 640px);
+}
+
+.overlay-text h2 {
+    font-size: clamp(1.35rem, 3vw, 1.85rem);
+    margin-bottom: 0.5rem;
+}
+
+.overlay-text p {
+    margin-bottom: 0;
+    font-size: clamp(0.95rem, 2vw, 1.05rem);
+    opacity: 0.95;
+}
+
+.new-section img {
+    margin-bottom: 20px;
+}
+
+.section-heading {
+    color: var(--esg-forest);
+    font-weight: 600;
+}
+
+.points-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--esg-sage), var(--esg-forest));
+    color: #fff;
+    font-size: 0.8rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    margin-bottom: 0.75rem;
+}
+
+.site-footer {
+    background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+    margin-top: 2rem;
+}

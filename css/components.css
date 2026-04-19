@@ -1,0 +1,27 @@
+/* 元件：導覽列、Toast、頁面區塊 */
+.navbar .nav-link.active {
+    color: var(--esg-forest) !important;
+    font-weight: 600;
+}
+
+/* 商品瀏覽區（首頁預留） */
+#browse-products .card,
+.product-grid .card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#browse-products .card:hover,
+.product-grid .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0.5rem 1rem rgba(27, 67, 50, 0.12);
+}
+
+.product-grid .card-img-top {
+    object-fit: cover;
+    max-height: 200px;
+}
+
+/* Toast 容器 */
+#toast-host {
+    z-index: 1090;
+}
