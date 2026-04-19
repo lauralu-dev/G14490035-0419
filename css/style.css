@@ -178,3 +178,50 @@ main {
     color: var(--text-muted);
     font-size: 0.875rem;
 }
+/* ── Hero 覆蓋區 RWD ── */
+@media (max-width: 768px) {
+    .image-overlay img {
+        max-height: 320px;
+    }
+
+    .overlay-text {
+        padding: 1.2rem 1.25rem;
+        max-width: 92%;
+        border-radius: var(--radius-md);
+    }
+
+    .overlay-text h2 {
+        font-size: clamp(1.2rem, 6vw, 1.8rem);
+        margin-bottom: 0.4rem;
+    }
+
+    .overlay-text p {
+        font-size: clamp(0.8rem, 3.5vw, 0.95rem);
+        margin-bottom: 0.9rem;
+    }
+
+    .overlay-text .btn-cta {
+        font-size: 0.72rem;
+        padding: 0.5rem 1.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .image-overlay img {
+        max-height: 260px;
+    }
+
+    .overlay-text {
+        padding: 1rem;
+        max-width: 95%;
+    }
+
+    .overlay-text h2 {
+        font-size: clamp(1rem, 7vw, 1.4rem);
+    }
+
+    .overlay-text p {
+        font-size: 0.8rem;
+        opacity: 0.85;
+    }
+}
