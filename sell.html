@@ -9,6 +9,7 @@
     <link href="css/style.css" rel="stylesheet">
     <link href="css/components.css" rel="stylesheet">
     <style>
+        /* ── 圖片上傳 ── */
         .img-upload-box {
             border: 2px dashed #c8e0b8;
             border-radius: 12px;
@@ -22,51 +23,70 @@
             border-color: #4a8c3f;
             background: #eaf3de;
         }
-        .img-upload-box .upload-icon {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-        .img-upload-box p {
-            font-size: 13px;
-            color: #6a8a64;
-            margin: 0;
-        }
-        .img-preview-wrap {
-            position: relative;
-            display: inline-block;
-        }
+        .img-upload-box .upload-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+        .img-upload-box p { font-size: 13px; color: #6a8a64; margin: 0; }
+        .img-preview-wrap { position: relative; display: inline-block; }
         .img-preview-wrap img {
-            width: 100%;
-            max-height: 220px;
-            object-fit: cover;
-            border-radius: 10px;
-            border: 1px solid #c8e0b8;
+            width: 100%; max-height: 220px; object-fit: cover;
+            border-radius: 10px; border: 1px solid #c8e0b8;
         }
         .img-remove-btn {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            width: 26px;
-            height: 26px;
-            border-radius: 50%;
-            background: rgba(0,0,0,0.5);
-            color: #fff;
-            border: none;
-            font-size: 14px;
-            line-height: 26px;
-            text-align: center;
-            cursor: pointer;
-            padding: 0;
+            position: absolute; top: 8px; right: 8px;
+            width: 26px; height: 26px; border-radius: 50%;
+            background: rgba(0,0,0,0.5); color: #fff; border: none;
+            font-size: 14px; line-height: 26px; text-align: center;
+            cursor: pointer; padding: 0;
         }
-        .img-uploading {
-            font-size: 12px;
-            color: #4a8c3f;
-            margin-top: 6px;
+        .img-uploading { font-size: 12px; color: #4a8c3f; margin-top: 6px; }
+
+        /* ── 我的上架商品 ── */
+        #my-listings-section { margin-top: 3rem; }
+
+        .my-listing-card { transition: box-shadow 0.2s; }
+        .my-listing-card:hover { box-shadow: 0 4px 18px rgba(74,140,63,0.13) !important; }
+
+        .listing-thumb {
+            width: 80px; height: 80px; object-fit: cover;
+            border-radius: 8px; border: 1px solid #c8e0b8;
+            background: #f7faf4; flex-shrink: 0;
+        }
+        .listing-thumb-placeholder {
+            width: 80px; height: 80px; border-radius: 8px;
+            border: 1px solid #c8e0b8; background: #f0f5ec;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.6rem; flex-shrink: 0;
+        }
+        .listing-name { max-width: 260px; }
+
+        .listing-badge {
+            font-size: 11px; padding: 3px 9px;
+            border-radius: 20px; white-space: nowrap;
+        }
+        .badge-active   { background: #d4edda; color: #276233; }
+        .badge-delisted { background: #f8d7da; color: #842029; }
+
+        .listing-esg  { font-size: 11px; color: #6a8a64; }
+        .listing-time { font-size: 11px; color: #aaa; }
+
+        #listings-empty { color: #8aaa80; font-size: 14px; }
+
+        /* ── 下架確認遮罩 ── */
+        .delist-overlay {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.4);
+            z-index: 1055;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .delist-box {
+            background: #fff; border-radius: 14px; padding: 2rem;
+            max-width: 360px; width: 90%;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.18);
         }
     </style>
 </head>
 
 <body data-page="sell">
+    <!-- ── 導覽列 ── -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
         <div class="container-fluid">
             <a class="navbar-brand" href="index.html" id="nav-brand">ESG 商品交易平台</a>
@@ -105,7 +125,8 @@
                         </ul>
                     </li>
                     <li class="nav-item py-1 py-lg-0">
-                        <button type="button" class="btn btn-sm btn-outline-success text-nowrap" id="nav-auth-btn">登入</button>
+                        <button type="button" class="btn btn-sm btn-outline-success text-nowrap"
+                            id="nav-auth-btn">登入</button>
                     </li>
                 </ul>
             </div>
@@ -113,8 +134,11 @@
     </nav>
 
     <main class="container py-5">
+
+        <!-- ── 上架表單 ── -->
         <h1 class="section-heading" id="page-title">上架商品</h1>
         <p class="lead text-muted" id="page-lead"></p>
+
         <div class="card border-0 shadow-sm mt-4">
             <div class="card-body">
                 <form id="sell-form" class="row g-3">
@@ -134,22 +158,19 @@
                             placeholder="例：減塑包裝、產銷履歷">
                     </div>
 
-                    <!-- 圖片上傳區 -->
+                    <!-- 圖片上傳 -->
                     <div class="col-12">
                         <label class="form-label">商品圖片（選填）</label>
                         <input type="file" id="sell-image-input" accept="image/*" class="d-none">
-
                         <div id="sell-image-dropzone" class="img-upload-box">
                             <div class="upload-icon">🖼️</div>
                             <p>點擊上傳圖片，或將圖片拖曳至此</p>
-                            <p class="mt-1" style="font-size:11px; color:#aaa;">支援 JPG、PNG、WEBP，最大 5MB</p>
+                            <p class="mt-1" style="font-size:11px;color:#aaa;">支援 JPG、PNG、WEBP，最大 5MB</p>
                         </div>
-
                         <div id="sell-image-preview" class="img-preview-wrap d-none w-100 mt-2">
                             <img id="sell-preview-img" src="" alt="預覽圖">
                             <button type="button" class="img-remove-btn" id="sell-image-remove">✕</button>
                         </div>
-
                         <p id="sell-image-status" class="img-uploading d-none"></p>
                     </div>
 
@@ -159,7 +180,38 @@
                 </form>
             </div>
         </div>
+
+        <!-- 我的上架商品（含下架功能）-->
+        <section id="my-listings-section">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+                <h2 class="section-heading mb-0" style="font-size:1.25rem;">我的上架商品</h2>
+                <select class="form-select form-select-sm" id="listing-filter" style="width:auto;">
+                    <option value="all">全部</option>
+                    <option value="active">上架中</option>
+                    <option value="delisted">已下架</option>
+                </select>
+            </div>
+
+            <div id="my-listings-list" class="d-flex flex-column gap-3"></div>
+
+            <div id="listings-empty" class="text-center py-5 d-none">
+                <p class="mt-2">目前尚無上架商品</p>
+            </div>
+        </section>
     </main>
+
+    <!-- ── 下架確認遮罩 ── -->
+    <div id="delist-overlay" class="delist-overlay d-none">
+        <div class="delist-box">
+            <h5 class="mb-1">確認下架</h5>
+            <p class="text-muted small mb-3" id="delist-confirm-name"></p>
+            <p class="mb-4">下架後商品將從平台隱藏，可透過「已下架」篩選查看或重新上架。確定要下架嗎？</p>
+            <div class="d-flex gap-2 justify-content-end">
+                <button class="btn btn-sm btn-outline-secondary" id="delist-cancel-btn">取消</button>
+                <button class="btn btn-sm btn-danger" id="delist-confirm-btn">確認下架</button>
+            </div>
+        </div>
+    </div>
 
     <div id="toast-host" class="toast-container position-fixed bottom-0 end-0 p-3"></div>
 
