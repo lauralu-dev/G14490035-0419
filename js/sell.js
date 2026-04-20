@@ -5,13 +5,7 @@
     GreenMart.wireNavLang();
     GreenMart.setActiveNav();
     GreenMart.attachAuthNav(t);
-    document.title = t.sell.title;
-    document.getElementById('page-title').textContent    = t.sell.heading;
-    document.getElementById('page-lead').textContent     = t.sell.lead;
-    document.getElementById('lbl-sell-name').textContent = t.sell.nameLabel;
-    document.getElementById('lbl-sell-price').textContent = t.sell.priceLabel;
-    document.getElementById('lbl-sell-esg').textContent  = t.sell.esgLabel;
-    document.getElementById('sell-submit-btn').textContent = t.sell.submitBtn;
+    GreenMart.applySellLabels(t);
 
     // ── 圖片上傳邏輯 ────
     const inputEl     = document.getElementById('sell-image-input');
@@ -45,11 +39,11 @@
 
     function handleFile(file) {
         if (!file.type.startsWith('image/')) {
-            GreenMart.showToast('請選擇圖片檔案', 'danger');
+            GreenMart.showToast(lang === 'en' ? 'Please select an image file' : '請選擇圖片檔案', 'danger');
             return;
         }
         if (file.size > 5 * 1024 * 1024) {
-            GreenMart.showToast('圖片大小不能超過 5MB', 'danger');
+            GreenMart.showToast(lang === 'en' ? 'Image size cannot exceed 5MB' : '圖片大小不能超過 5MB', 'danger');
             return;
         }
         selectedFile = file;
@@ -92,11 +86,11 @@
 
         const submitBtn = document.getElementById('sell-submit-btn');
         submitBtn.disabled = true;
-        submitBtn.textContent = '上架中...';
+        submitBtn.textContent = lang === 'en' ? 'Submitting...' : '上架中...';
 
         try {
             if (selectedFile) {
-                statusEl.textContent = '圖片上傳中...';
+                statusEl.textContent = lang === 'en' ? 'Uploading image...' : '圖片上傳中...';
                 statusEl.classList.remove('d-none');
                 uploadedImageUrl = await uploadImage(selectedFile);
                 statusEl.classList.add('d-none');
@@ -133,7 +127,7 @@
 
         } catch (err) {
             console.error(err);
-            GreenMart.showToast('上架失敗，請稍後再試', 'danger');
+            GreenMart.showToast(lang === 'en' ? 'Listing failed, please try again later' : '上架失敗，請稍後再試', 'danger');
         } finally {
             submitBtn.disabled = false;
             submitBtn.textContent = t.sell.submitBtn;
@@ -174,16 +168,16 @@
                 : `<div class="listing-thumb-placeholder">🛒</div>`;
 
             const badge = isActive
-                ? `<span class="listing-badge badge-active">上架中</span>`
-                : `<span class="listing-badge badge-delisted">已下架</span>`;
+                ? `<span class="listing-badge badge-active">${lang === 'en' ? 'Active' : '上架中'}</span>`
+                : `<span class="listing-badge badge-delisted">${lang === 'en' ? 'Delisted' : '已下架'}</span>`;
 
             const actionBtn = isActive
-                ? `<button class="btn btn-sm btn-outline-danger delist-btn" data-id="${item.id}">下架</button>`
-                : `<button class="btn btn-sm btn-outline-success relist-btn" data-id="${item.id}">重新上架</button>`;
+                ? `<button class="btn btn-sm btn-outline-danger delist-btn" data-id="${item.id}">${lang === 'en' ? 'Delist' : '下架'}</button>`
+                : `<button class="btn btn-sm btn-outline-success relist-btn" data-id="${item.id}">${lang === 'en' ? 'Relist' : '重新上架'}</button>`;
 
             const timeInfo = isActive
-                ? `上架時間：${fmtTime(item.listedAt)}`
-                : `上架：${fmtTime(item.listedAt)}　｜　下架：${fmtTime(item.delistedAt)}`;
+                ? `${lang === 'en' ? 'Listed at' : '上架時間'}：${fmtTime(item.listedAt)}`
+                : `${lang === 'en' ? 'Listed' : '上架'}：${fmtTime(item.listedAt)}　｜　${lang === 'en' ? 'Delisted' : '下架'}：${fmtTime(item.delistedAt)}`;
 
             const card = document.createElement('div');
             card.className = 'card border-0 shadow-sm my-listing-card';
@@ -222,7 +216,7 @@
         const item = GreenMartLocal.getListings().find(p => p.id === id);
         if (!item) return;
         pendingDelistId = id;
-        document.getElementById('delist-confirm-name').textContent = `「${item.name}」`;
+        document.getElementById('lbl-sell-delist-confirm-name').textContent = `「${item.name}」`;
         document.getElementById('delist-overlay').classList.remove('d-none');
     }
 
@@ -231,24 +225,24 @@
         pendingDelistId = null;
     }
 
-    document.getElementById('delist-cancel-btn').addEventListener('click', closeDelistOverlay);
+    document.getElementById('delistCancel').addEventListener('click', closeDelistOverlay);
 
     document.getElementById('delist-overlay').addEventListener('click', e => {
         if (e.target === document.getElementById('delist-overlay')) closeDelistOverlay();
     });
 
-    document.getElementById('delist-confirm-btn').addEventListener('click', () => {
+    document.getElementById('lbl-sell-delistConfirm').addEventListener('click', () => {
         if (!pendingDelistId) return;
         const result = GreenMartLocal.delistListing(pendingDelistId);
         if (result) {
             GreenMartLocal.appendLedger({
                 type: 'delist',
-                title: '商品下架',
+                title: lang === 'en' ? 'Product Delisted' : '商品下架',
                 detail: result.name + ' · NT$ ' + result.price,
                 pointsDelta: 0,
                 creditDelta: 0,
             });
-            GreenMart.showToast('商品已下架', 'success');
+            GreenMart.showToast(lang === 'en' ? 'Product delisted' : '商品已下架', 'success');
         }
         closeDelistOverlay();
         renderListings(document.getElementById('listing-filter').value);
@@ -260,12 +254,12 @@
         if (result) {
             GreenMartLocal.appendLedger({
                 type: 'sell',
-                title: '商品重新上架',
+                title: lang === 'en' ? 'Product Relisted' : '商品重新上架',
                 detail: result.name + ' · NT$ ' + result.price,
                 pointsDelta: 0,
                 creditDelta: 0,
             });
-            GreenMart.showToast('商品已重新上架 🌱', 'success');
+            GreenMart.showToast(lang === 'en' ? 'Product relisted 🌱' : '商品已重新上架 🌱', 'success');
             renderListings(document.getElementById('listing-filter').value);
         }
     }

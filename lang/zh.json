@@ -56,7 +56,21 @@
         "priceLabel": "售價（NT$）",
         "esgLabel": "ESG／永續說明",
         "submitBtn": "送出上架",
-        "toastOk": "上架已記錄（本機），已發放綠點回饋（示意）"
+        "toastOk": "上架已記錄（本機），已發放綠點回饋（示意）",
+        "imageLabel": "商品圖片（選填）",
+        "imageHint": "點擊上傳圖片，或將圖片拖曳至此",
+        "imageSpec": "支援 JPG、PNG、WEBP，最大 5MB",
+        "myListingsHeading": "我的上架商品",
+        "filterAll": "全部",
+        "filterActive": "上架中",
+        "filterDelisted": "已下架",
+        "emptyListings": "目前尚無上架商品",
+        "delistTitle": "確認下架",
+        "delistBody": "下架後商品將從平台隱藏，可透過「已下架」篩選查看或重新上架。確定要下架嗎？",
+        "delistCancel": "取消",
+        "delistConfirm": "確認下架",
+        "namePlaceholder": "例：公平貿易咖啡掛耳包",
+        "esgPlaceholder":  "例：減塑包裝、產銷履歷"
     },
     "cart": {
         "title": "購物車｜ESG 商品交易平台",

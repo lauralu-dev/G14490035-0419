@@ -25,16 +25,31 @@ GreenMart.loadTranslations = async function (lang) {
     return res.json();
 };
 
+/* ── 輔助：點分隔路徑取值，例如 "sell.nameLabel" ── */
+GreenMart._get = function (obj, path) {
+    return path.split('.').reduce((acc, k) => acc?.[k], obj);
+};
+
+/* ── 套用一組 { elementId: 'json.key.path' } 對應表 ── */
+GreenMart.applyIdMap = function (t, idMap) {
+    Object.entries(idMap).forEach(([id, key]) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const val = GreenMart._get(t, key);
+        if (val != null) el.textContent = val;
+    });
+};
+
 GreenMart.applyNavLabels = function (t) {
     const brand = document.getElementById('nav-brand');
     if (brand && t.brand) brand.textContent = t.brand;
     const pairs = [
-        ['nav-home', t.nav && t.nav.home],
-        ['nav-products', t.nav && t.nav.products],
-        ['nav-redeem', t.nav && t.nav.redeem],
-        ['nav-cart', t.nav && t.nav.cart],
-        ['nav-sell', t.nav && t.nav.sell],
-        ['nav-profile', t.nav && t.nav.profile],
+        ['nav-home',        t.nav && t.nav.home],
+        ['nav-products',    t.nav && t.nav.products],
+        ['nav-redeem',      t.nav && t.nav.redeem],
+        ['nav-cart',        t.nav && t.nav.cart],
+        ['nav-sell',        t.nav && t.nav.sell],
+        ['nav-profile',     t.nav && t.nav.profile],
         ['languageDropdown', t.nav && t.nav.language],
     ];
     pairs.forEach(([id, text]) => {
@@ -43,6 +58,45 @@ GreenMart.applyNavLabels = function (t) {
     });
     const langLabel = document.querySelector('[data-i18n="nav.language"]');
     if (langLabel && t.nav && t.nav.language) langLabel.textContent = t.nav.language;
+};
+
+/* ── sell.html 專用標籤翻譯 ── */
+GreenMart.applySellLabels = function (t) {
+    const idMap = {
+        'page-title'                 : 'sell.heading',
+        'page-lead'                  : 'sell.lead',
+        'lbl-sell-name'              : 'sell.nameLabel',
+        'lbl-sell-price'             : 'sell.priceLabel',
+        'lbl-sell-esg'               : 'sell.esgLabel',
+        'lbl-sell-imageLabel'        : 'sell.imageLabel',
+        'lbl-sell-imageHint'         : 'sell.imageHint',
+        'lbl-sell-imageSpec'         : 'sell.imageSpec',
+        'sell-submit-btn'            : 'sell.submitBtn',
+        'lbl-sell-myListingsHeading' : 'sell.myListingsHeading',
+        'lbl-sell-filterAll'         : 'sell.filterAll',
+        'lbl-sell-filterActive'      : 'sell.filterActive',
+        'lbl-sell-filterDelisted'    : 'sell.filterDelisted',
+        'lbl-sell-emptyListings'     : 'sell.emptyListings',
+        'lbl-sell-delistTitle'       : 'sell.delistTitle',
+        'lbl-sell-delistBody'        : 'sell.delistBody',
+        'delistCancel'               : 'sell.delistCancel',
+        'lbl-sell-delistConfirm'     : 'sell.delistConfirm',
+    };
+    GreenMart.applyIdMap(t, idMap);
+
+    /* placeholder 另外處理 */
+    const placeholders = {
+        'sell-name'  : GreenMart._get(t, 'sell.namePlaceholder'),
+        'sell-esg'   : GreenMart._get(t, 'sell.esgPlaceholder'),
+    };
+    Object.entries(placeholders).forEach(([id, text]) => {
+        const el = document.getElementById(id);
+        if (el && text) el.placeholder = text;
+    });
+
+    /* <title> */
+    const titleVal = GreenMart._get(t, 'sell.title');
+    if (titleVal) document.title = titleVal;
 };
 
 GreenMart.wireNavLang = function () {
@@ -65,18 +119,17 @@ GreenMart.setActiveNav = function () {
     });
 };
 
-/** 依 localStorage greenmart-signed-in 顯示「登入」或「登出」 */
 GreenMart.attachAuthNav = function (t) {
     const btn = document.getElementById('nav-auth-btn');
     if (!btn) return;
-    const loginLabel = (t && t.nav && t.nav.authLogin) || '登入';
+    const loginLabel  = (t && t.nav && t.nav.authLogin)  || '登入';
     const logoutLabel = (t && t.nav && t.nav.authLogout) || '登出';
 
     function sync() {
         const signedIn = localStorage.getItem('greenmart-signed-in') === '1';
         btn.textContent = signedIn ? logoutLabel : loginLabel;
         btn.classList.toggle('btn-outline-success', !signedIn);
-        btn.classList.toggle('btn-outline-danger', signedIn);
+        btn.classList.toggle('btn-outline-danger',   signedIn);
         btn.onclick = function () {
             if (localStorage.getItem('greenmart-signed-in') === '1') {
                 localStorage.removeItem('greenmart-signed-in');
@@ -96,17 +149,13 @@ GreenMart.showToast = function (message, variant) {
         return;
     }
     const bg =
-        variant === 'danger'
-            ? 'text-bg-danger'
-            : variant === 'success'
-              ? 'text-bg-success'
-              : 'text-bg-dark';
+        variant === 'danger'  ? 'text-bg-danger'  :
+        variant === 'success' ? 'text-bg-success' : 'text-bg-dark';
     const el = document.createElement('div');
     el.className = 'toast align-items-center ' + bg + ' border-0';
     el.setAttribute('role', 'alert');
     el.innerHTML =
-        '<div class="d-flex"><div class="toast-body">' +
-        message +
+        '<div class="d-flex"><div class="toast-body">' + message +
         '</div><button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button></div>';
     host.appendChild(el);
     const toast = new bootstrap.Toast(el, { delay: 3200 });

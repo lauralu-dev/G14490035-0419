@@ -56,7 +56,21 @@
         "priceLabel": "Price (NT$)",
         "esgLabel": "ESG / sustainability note",
         "submitBtn": "Submit listing",
-        "toastOk": "Listing saved (local). Points granted (demo)."
+        "toastOk": "Listing saved (local). Points granted (demo).",
+        "imageLabel": "Product Image (Optional)",
+        "imageHint": "Click to upload an image, or drag and drop an image here",
+        "imageSpec": "Supports JPG, PNG, WEBP, max 5MB",
+        "myListingsHeading": "My Listings",
+        "filterAll": "All",
+        "filterActive": "Active",
+        "filterDelisted": "Delisted",
+        "emptyListings": "No listings available currently",
+        "delistTitle": "Confirm Delisting",
+        "delistBody": "Once delisted, the product will be hidden from the platform. You can view it through the 'Delisted' filter or relist it. Are you sure you want to delist?",
+        "delistCancel": "Cancel",
+        "delistConfirm": "Confirm Delisting",
+        "namePlaceholder": "e.g. Fair Trade Coffee Drip Bag",
+        "esgPlaceholder":  "e.g. reduced plastic packaging, supply chain traceability"
     },
     "cart": {
         "title": "Cart | ESG Marketplace",

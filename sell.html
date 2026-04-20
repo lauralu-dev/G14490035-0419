@@ -9,7 +9,6 @@
     <link href="css/style.css" rel="stylesheet">
     <link href="css/components.css" rel="stylesheet">
     <style>
-        /* ── 圖片上傳 ── */
         .img-upload-box {
             border: 2px dashed #c8e0b8;
             border-radius: 12px;
@@ -39,7 +38,6 @@
         }
         .img-uploading { font-size: 12px; color: #4a8c3f; margin-top: 6px; }
 
-        /* ── 我的上架商品 ── */
         #my-listings-section { margin-top: 3rem; }
 
         .my-listing-card { transition: box-shadow 0.2s; }
@@ -70,7 +68,6 @@
 
         #listings-empty { color: #8aaa80; font-size: 14px; }
 
-        /* ── 下架確認遮罩 ── */
         .delist-overlay {
             position: fixed; inset: 0;
             background: rgba(0,0,0,0.4);
@@ -137,7 +134,7 @@
 
         <!-- ── 上架表單 ── -->
         <h1 class="section-heading" id="page-title">上架商品</h1>
-        <p class="lead text-muted" id="page-lead"></p>
+        <p class="lead text-muted" id="page-lead">填寫下列資訊即可送出（本機先存於瀏覽器示意）。成功上架將依標價給予少量綠點回饋；串接資料庫後可正式刊登。</p>
 
         <div class="card border-0 shadow-sm mt-4">
             <div class="card-body">
@@ -160,12 +157,12 @@
 
                     <!-- 圖片上傳 -->
                     <div class="col-12">
-                        <label class="form-label">商品圖片（選填）</label>
+                        <label class="form-label" id="lbl-sell-imageLabel">商品圖片（選填）</label>
                         <input type="file" id="sell-image-input" accept="image/*" class="d-none">
                         <div id="sell-image-dropzone" class="img-upload-box">
                             <div class="upload-icon">🖼️</div>
-                            <p>點擊上傳圖片，或將圖片拖曳至此</p>
-                            <p class="mt-1" style="font-size:11px;color:#aaa;">支援 JPG、PNG、WEBP，最大 5MB</p>
+                            <p id="lbl-sell-imageHint">點擊上傳圖片，或將圖片拖曳至此</p>
+                            <p class="mt-1" style="font-size:11px;color:#aaa;" id="lbl-sell-imageSpec">支援 JPG、PNG、WEBP，最大 5MB</p>
                         </div>
                         <div id="sell-image-preview" class="img-preview-wrap d-none w-100 mt-2">
                             <img id="sell-preview-img" src="" alt="預覽圖">
@@ -184,18 +181,18 @@
         <!-- 我的上架商品（含下架功能）-->
         <section id="my-listings-section">
             <div class="d-flex align-items-center justify-content-between mb-3">
-                <h2 class="section-heading mb-0" style="font-size:1.25rem;">我的上架商品</h2>
+                <h2 class="section-heading mb-0" style="font-size:1.25rem;" id="lbl-sell-myListingsHeading">我的上架商品</h2>
                 <select class="form-select form-select-sm" id="listing-filter" style="width:auto;">
-                    <option value="all">全部</option>
-                    <option value="active">上架中</option>
-                    <option value="delisted">已下架</option>
+                    <option value="all" id="lbl-sell-filterAll">全部</option>
+                    <option value="active" id="lbl-sell-filterActive">上架中</option>
+                    <option value="delisted" id="lbl-sell-filterDelisted">已下架</option>
                 </select>
             </div>
 
             <div id="my-listings-list" class="d-flex flex-column gap-3"></div>
 
             <div id="listings-empty" class="text-center py-5 d-none">
-                <p class="mt-2">目前尚無上架商品</p>
+                <p class="mt-2" id="lbl-sell-emptyListings">目前尚無上架商品</p>
             </div>
         </section>
     </main>
@@ -203,12 +200,12 @@
     <!-- ── 下架確認遮罩 ── -->
     <div id="delist-overlay" class="delist-overlay d-none">
         <div class="delist-box">
-            <h5 class="mb-1">確認下架</h5>
-            <p class="text-muted small mb-3" id="delist-confirm-name"></p>
-            <p class="mb-4">下架後商品將從平台隱藏，可透過「已下架」篩選查看或重新上架。確定要下架嗎？</p>
+            <h5 class="mb-1" id="lbl-sell-delistTitle">確認下架</h5>
+            <p class="text-muted small mb-3" id="lbl-sell-delist-confirm-name"></p>
+            <p class="mb-4" id="lbl-sell-delistBody">下架後商品將從平台隱藏，可透過「已下架」篩選查看或重新上架。確定要下架嗎？</p>
             <div class="d-flex gap-2 justify-content-end">
-                <button class="btn btn-sm btn-outline-secondary" id="delist-cancel-btn">取消</button>
-                <button class="btn btn-sm btn-danger" id="delist-confirm-btn">確認下架</button>
+                <button class="btn btn-sm btn-outline-secondary" id="delistCancel">取消</button>
+                <button class="btn btn-sm btn-danger" id="lbl-sell-delistConfirm">確認下架</button>
             </div>
         </div>
     </div>
