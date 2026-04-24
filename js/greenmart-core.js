@@ -162,3 +162,32 @@ GreenMart.showToast = function (message, variant) {
     toast.show();
     el.addEventListener('hidden.bs.toast', () => el.remove());
 };
+/**
+ * 更新 navbar 購物車數量 badge。
+ * 讀取 localStorage 的 greenmart-cart，計算總件數後注入 #nav-cart。
+ */
+GreenMart.updateCartBadge = function () {
+    const cartLink = document.getElementById('nav-cart');
+    if (!cartLink) return;
+
+    let total = 0;
+    try {
+        const raw = localStorage.getItem('greenmart-cart');
+        const items = raw ? JSON.parse(raw) : [];
+        if (Array.isArray(items)) {
+            total = items.reduce((sum, item) => sum + (item.qty || 1), 0);
+        }
+    } catch { /* ignore */ }
+
+    // 移除舊 badge
+    const old = cartLink.querySelector('.cart-badge');
+    if (old) old.remove();
+
+    if (total > 0) {
+        const badge = document.createElement('span');
+        badge.className = 'cart-badge badge rounded-pill bg-danger ms-1';
+        badge.style.fontSize = '0.65em';
+        badge.textContent = total > 99 ? '99+' : total;
+        cartLink.appendChild(badge);
+    }
+};

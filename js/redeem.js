@@ -16,6 +16,7 @@
         GreenMart.wireNavLang();
         GreenMart.setActiveNav();
         GreenMart.attachAuthNav(t);
+        GreenMart.updateCartBadge();
         document.title = t.redeemPage.title;
 
         const h = document.getElementById('redeem-heading');

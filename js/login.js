@@ -5,6 +5,7 @@
     GreenMart.wireNavLang();
     GreenMart.setActiveNav();
     GreenMart.attachAuthNav(t);
+    GreenMart.updateCartBadge();
     document.title = t.login.title;
     const titleEl = document.getElementById('page-title');
     const leadEl = document.getElementById('page-lead');

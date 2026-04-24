@@ -16,7 +16,11 @@
         "heading": "商品介紹",
         "lead": "選購永續／ESG 相關商品；完成消費可累積綠點（本機示意）。亦可前往「上架」販售商品獲得綠點回饋。",
         "addCart": "加入購物車",
-        "toastAdded": "已加入購物車"
+        "toastAdded": "已加入購物車",
+        "default":   "預設排序",
+        "priceAsc":  "價格低→高",
+        "priceDesc": "價格高→低",
+        "newest":    "最新上架"
     },
     "redeemPage": {
         "title": "綠點兌換｜ESG 商品交易平台",

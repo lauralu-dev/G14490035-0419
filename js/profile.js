@@ -54,6 +54,7 @@ function renderProfile(t) {
     GreenMart.wireNavLang();
     GreenMart.setActiveNav();
     GreenMart.attachAuthNav(t);
+    GreenMart.updateCartBadge();
     document.title = t.profile.title;
     document.getElementById('page-title').textContent = t.profile.heading;
     document.getElementById('page-lead').textContent = t.profile.lead;

@@ -6,6 +6,7 @@
     GreenMart.setActiveNav();
     GreenMart.attachAuthNav(t);
     GreenMart.applySellLabels(t);
+    GreenMart.updateCartBadge();
 
     // ── 圖片上傳邏輯 ────
     const inputEl     = document.getElementById('sell-image-input');

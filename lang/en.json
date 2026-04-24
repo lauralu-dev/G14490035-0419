@@ -16,7 +16,11 @@
         "heading": "Products",
         "lead": "Buy sustainable / ESG items and earn green points (local demo). List items under Sell to earn points too.",
         "addCart": "Add to cart",
-        "toastAdded": "Added to cart"
+        "toastAdded": "Added to cart",
+        "default":   "Default",
+        "priceAsc":  "Price: Low to High",
+        "priceDesc": "Price: High to Low",
+        "newest":    "Newest"
     },
     "redeemPage": {
         "title": "Redeem | ESG Marketplace",

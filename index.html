@@ -169,6 +169,7 @@
                 GreenMart.wireNavLang();
                 GreenMart.setActiveNav();
                 GreenMart.attachAuthNav(t);
+                GreenMart.updateCartBadge();
                 document.title = t.home.title;
                 set('welcome-text', t.home.welcome);
                 set('description-text', t.home.description);
@@ -193,6 +194,7 @@
                 GreenMart.attachAuthNav({
                     nav: { authLogin: '登入', authLogout: '登出', language: '語言' },
                 });
+                GreenMart.updateCartBadge();
             } finally {
                 if (typeof AOS !== 'undefined') {
                     AOS.init({ duration: 1000, easing: 'ease-in-out', once: false });

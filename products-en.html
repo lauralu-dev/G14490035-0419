@@ -60,6 +60,15 @@
     <main class="container mt-4 mb-5">
         <h1 class="section-heading h3 mb-2" id="products-heading">Products</h1>
         <p class="text-muted mb-4" id="products-lead"></p>
+        <!-- Sorting toolbar -->
+        <div class="d-flex justify-content-end mb-3">
+            <select class="form-select form-select-sm w-auto" id="sort-select">
+                <option value="default" id="sort-opt-default">Default</option>
+                <option value="price-asc" id="sort-opt-price-asc">Price: Low to High</option>
+                <option value="price-desc" id="sort-opt-price-desc">Price: High to Low</option>
+                <option value="newest" id="sort-opt-newest">Newest</option>
+            </select>
+        </div>
         <div class="row product-grid">
             <div class="col-md-4 mb-4">
                 <div class="card h-100 border-0 shadow-sm">
