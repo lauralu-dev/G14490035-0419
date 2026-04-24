@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>你是哪種小綠人？｜ESG 商品交易平台</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/components.css" rel="stylesheet">
+
+    <style>
+        /* ── Quiz 頁專屬樣式（繼承 Elevare 設計語言） ── */
+
+        /* 頁面底色沿用 --cream */
+        body { background-color: var(--cream); }
+
+        /* ── HERO ── */
+        .quiz-hero {
+            text-align: center;
+            padding: 4rem 1rem 2.5rem;
+        }
+        .quiz-hero .mascot {
+            font-size: 4rem;
+            animation: float 3s ease-in-out infinite;
+            display: block;
+            margin-bottom: 1.25rem;
+        }
+        @keyframes float {
+            0%,100% { transform: translateY(0); }
+            50%      { transform: translateY(-10px); }
+        }
+        .quiz-hero h1 {
+            font-family: var(--font-serif);
+            font-weight: 500;
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            color: var(--esg-forest);
+            letter-spacing: 0.02em;
+            line-height: 1.2;
+        }
+        .quiz-hero h1 em {
+            font-style: italic;
+            color: var(--gold);
+        }
+        .quiz-hero p {
+            color: var(--text-muted);
+            margin-top: .5rem;
+            font-family: var(--font-sans);
+            font-weight: 300;
+            font-size: .95rem;
+            letter-spacing: 0.03em;
+        }
+        /* 獎勵標籤 → Elevare 質感標籤 */
+        .reward-badge {
+            display: inline-block;
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            font-family: var(--font-sans);
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 0.3rem 1rem;
+            border-radius: 999px;
+            margin-top: 1rem;
+        }
+
+        /* ── PROGRESS ── */
+        .progress-wrap {
+            max-width: 540px;
+            margin: 1.5rem auto .5rem;
+            padding: 0 1rem;
+        }
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: .78rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: .5rem;
+        }
+        .progress { height: 2px; border-radius: 0; background: var(--border); }
+        .progress-bar {
+            background: var(--esg-forest);
+            transition: width .4s ease;
+        }
+
+        /* ── QUESTION CARD ── */
+        .question-wrap {
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            padding: 0 1rem;
+        }
+        .question-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-card);
+            padding: 2.5rem 2rem 2rem;
+            animation: slideUp .35s ease;
+        }
+        @keyframes slideUp {
+            from { opacity:0; transform:translateY(14px); }
+            to   { opacity:1; transform:translateY(0); }
+        }
+        .question-num {
+            font-size: .68rem;
+            font-weight: 500;
+            letter-spacing: .15em;
+            color: var(--esg-sage);
+            text-transform: uppercase;
+            font-family: var(--font-sans);
+            margin-bottom: .75rem;
+        }
+        .question-text {
+            font-family: var(--font-serif);
+            font-size: 1.35rem;
+            font-weight: 500;
+            color: var(--esg-forest);
+            margin-bottom: 1.75rem;
+            line-height: 1.5;
+            letter-spacing: 0.01em;
+        }
+
+        /* 選項按鈕 → Elevare 精緻邊框風格 */
+        .option-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: .85rem 1.2rem;
+            margin-bottom: .6rem;
+            font-size: .88rem;
+            font-family: var(--font-sans);
+            font-weight: 300;
+            letter-spacing: 0.02em;
+            color: var(--text-dark);
+            cursor: pointer;
+            transition: border-color var(--transition), background var(--transition), color var(--transition);
+        }
+        .option-btn:hover {
+            border-color: var(--esg-sage);
+            background: var(--cream);
+            color: var(--esg-forest);
+        }
+        .option-btn.selected {
+            border-color: var(--esg-forest);
+            background: var(--esg-forest);
+            color: #fff;
+        }
+        .option-btn .opt-label {
+            display: inline-block;
+            font-size: .68rem;
+            font-weight: 500;
+            letter-spacing: .1em;
+            color: var(--gold);
+            margin-right: .65rem;
+            vertical-align: middle;
+        }
+        .option-btn.selected .opt-label { color: rgba(255,255,255,.6); }
+
+        /* 下一題按鈕 → Elevare 風格 */
+        .next-btn {
+            width: 100%;
+            margin-top: 1rem;
+            padding: .7rem;
+            background: transparent;
+            color: var(--esg-forest);
+            border: 1px solid var(--esg-forest);
+            border-radius: 999px;
+            font-size: .78rem;
+            font-weight: 500;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-family: var(--font-sans);
+            transition: background var(--transition), color var(--transition);
+        }
+        .next-btn:hover  { background: var(--esg-forest); color: #fff; }
+        .next-btn:disabled {
+            background: transparent;
+            border-color: var(--border);
+            color: var(--text-muted);
+            cursor: not-allowed;
+        }
+
+        /* ── INTRO 區塊 ── */
+        #intro-section .start-btn {
+            display: inline-block;
+            background: var(--esg-forest);
+            color: #fff;
+            border: 1px solid var(--esg-forest);
+            border-radius: 999px;
+            padding: .65rem 2.5rem;
+            font-size: .78rem;
+            font-weight: 500;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-family: var(--font-sans);
+            transition: background var(--transition), color var(--transition);
+            margin-top: 1.25rem;
+        }
+        #intro-section .start-btn:hover { background: var(--esg-sage); border-color: var(--esg-sage); }
+
+        /* 類型晶片 */
+        .intro-types {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .5rem;
+            justify-content: center;
+            margin: 1.25rem 0 .5rem;
+        }
+        .type-chip {
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            padding: .3rem .85rem;
+            font-size: .78rem;
+            font-weight: 400;
+            font-family: var(--font-sans);
+            color: var(--esg-forest);
+            letter-spacing: 0.03em;
+            background: #fff;
+        }
+
+        /* ── RESULT ── */
+        #result-section { display: none; }
+        .result-card {
+            max-width: 560px;
+            margin: 1rem auto 3rem;
+            padding: 0 1rem;
+        }
+        .result-inner {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-hover);
+            padding: 3rem 2.5rem;
+            text-align: center;
+            animation: popIn .5s cubic-bezier(.175,.885,.32,1.275);
+        }
+        @keyframes popIn {
+            from { opacity:0; transform:scale(.92); }
+            to   { opacity:1; transform:scale(1); }
+        }
+        .result-emoji { font-size: 4rem; margin-bottom: 1rem; display: block; }
+        .result-type  {
+            font-family: var(--font-serif);
+            font-weight: 500;
+            font-size: 2rem;
+            color: var(--esg-forest);
+            letter-spacing: 0.02em;
+        }
+        .result-subtitle {
+            font-family: var(--font-sans);
+            font-size: .7rem;
+            font-weight: 500;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin: .4rem 0 1rem;
+        }
+        .result-desc {
+            font-family: var(--font-sans);
+            font-size: .9rem;
+            font-weight: 300;
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 1.75rem;
+        }
+        .result-traits {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .45rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        .trait-tag {
+            border: 1px solid var(--border);
+            color: var(--esg-sage);
+            font-family: var(--font-sans);
+            font-size: .7rem;
+            font-weight: 500;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            padding: .3rem .8rem;
+            border-radius: 999px;
+        }
+
+        /* 綠點獎勵區 */
+        .points-earned {
+            border: 1px solid var(--gold);
+            border-radius: var(--radius-md);
+            padding: 1.25rem;
+            margin-bottom: 1.75rem;
+            background: linear-gradient(135deg, #fdfaf3, #faf4e0);
+        }
+        .points-earned .big {
+            font-family: var(--font-serif);
+            font-size: 2.2rem;
+            font-weight: 500;
+            color: var(--gold);
+            letter-spacing: .02em;
+        }
+        .points-earned .label {
+            font-family: var(--font-sans);
+            font-size: .78rem;
+            font-weight: 400;
+            letter-spacing: .08em;
+            color: var(--text-muted);
+            margin-top: .2rem;
+        }
+        .already-done {
+            background: var(--cream-dark);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: .85rem;
+            font-family: var(--font-sans);
+            font-size: .82rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        /* 結果頁按鈕 */
+        .retake-btn, .home-btn {
+            background: transparent;
+            border: 1px solid var(--esg-forest);
+            color: var(--esg-forest);
+            border-radius: 999px;
+            padding: .55rem 1.5rem;
+            font-family: var(--font-sans);
+            font-size: .75rem;
+            font-weight: 500;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all var(--transition);
+            margin: 0 .25rem;
+        }
+        .retake-btn:hover { background: var(--esg-sage); border-color: var(--esg-sage); color: #fff; }
+        .home-btn:hover   { background: var(--esg-forest); color: #fff; }
+
+        /* ── 分隔線 ── */
+        .quiz-divider {
+            width: 40px;
+            height: 1px;
+            background: var(--gold);
+            margin: 1rem auto;
+        }
+    </style>
+</head>
+<body data-page="quiz">
+
+<!-- ── NAVBAR（結構與 profile.html 一致，CSS 由 style.css / components.css 提供） ── -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="index.html" id="nav-brand">綠行選品</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" data-nav="home"     href="index.html"    id="nav-home">首頁</a></li>
+                <li class="nav-item"><a class="nav-link" data-nav="products" href="products.html" id="nav-products">商品介紹</a></li>
+                <li class="nav-item"><a class="nav-link" data-nav="redeem"   href="redeem.html"   id="nav-redeem">綠點兌換</a></li>
+                <li class="nav-item"><a class="nav-link" data-nav="cart"     href="cart.html"     id="nav-cart">購物車</a></li>
+                <li class="nav-item"><a class="nav-link" data-nav="sell"     href="sell.html"     id="nav-sell">上架</a></li>
+                <li class="nav-item"><a class="nav-link" data-nav="profile"  href="profile.html"  id="nav-profile">個人資料</a></li>
+                <li class="nav-item"><a class="nav-link active" href="quiz.html" aria-current="page">🌿 小綠人測驗</a></li>
+            </ul>
+            <ul class="navbar-nav ms-auto align-items-lg-center flex-wrap gap-2">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false" data-i18n="nav.language">語言</a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+                        <li><a class="dropdown-item" href="#" data-set-lang="zh">中文</a></li>
+                        <li><a class="dropdown-item" href="#" data-set-lang="en">English</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item py-1 py-lg-0">
+                    <button type="button" class="btn btn-sm btn-outline-success text-nowrap" id="nav-auth-btn">登入</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<main class="container-fluid px-0">
+
+    <!-- ── HERO ── -->
+    <div class="quiz-hero">
+        <span class="mascot">🌿</span>
+        <h1>你是哪種<em>小綠人</em>？</h1>
+        <p>6 道題目，發現你的永續個性</p>
+        <div class="quiz-divider"></div>
+        <div class="reward-badge">✦ 完成測驗獲得 100 綠點</div>
+    </div>
+
+    <!-- ── INTRO ── -->
+    <div id="intro-section" class="question-wrap text-center">
+        <div class="question-card">
+            <p style="font-family:var(--font-sans);font-weight:300;font-size:.9rem;color:var(--text-muted);line-height:1.8;margin-bottom:1.25rem;">
+                在永續地球的世界裡，每個人都有屬於自己的環保超能力。<br>
+                這份測驗幫你找出你的小綠人類型，並給你 <strong style="font-weight:600;color:var(--gold);">100 綠點</strong> 作為獎勵。
+            </p>
+            <div class="intro-types">
+                <span class="type-chip">🌱 根系守護者</span>
+                <span class="type-chip">☀️ 陽光行動家</span>
+                <span class="type-chip">💧 水流思考者</span>
+                <span class="type-chip">🌬️ 風系探索者</span>
+                <span class="type-chip">🪨 大地實踐者</span>
+                <span class="type-chip">🔥 火焰創變者</span>
+            </div>
+            <p style="font-family:var(--font-sans);font-size:.75rem;letter-spacing:.06em;color:var(--border);margin:.75rem 0 0;">每個帳號只能領取一次綠點獎勵</p>
+            <button class="start-btn" onclick="startQuiz()">開始測驗</button>
+        </div>
+    </div>
+
+    <!-- ── QUIZ ── -->
+    <div id="quiz-section" style="display:none">
+        <div class="progress-wrap">
+            <div class="progress-label">
+                <span id="progress-text">第 1 題，共 6 題</span>
+                <span id="progress-pct">0%</span>
+            </div>
+            <div class="progress">
+                <div class="progress-bar" id="progress-bar" style="width:0%"></div>
+            </div>
+        </div>
+        <div class="question-wrap">
+            <div class="question-card" id="question-card">
+                <div class="question-num" id="q-num">Question 1 / 6</div>
+                <div class="question-text" id="q-text"></div>
+                <div id="q-options"></div>
+                <button class="next-btn" id="next-btn" disabled onclick="nextQuestion()">下一題</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── RESULT ── -->
+    <div id="result-section">
+        <div class="result-card">
+            <div class="result-inner">
+                <span class="result-emoji" id="res-emoji"></span>
+                <div class="result-type" id="res-type"></div>
+                <div class="result-subtitle" id="res-subtitle"></div>
+                <div class="quiz-divider"></div>
+                <div class="result-desc" id="res-desc"></div>
+                <div class="result-traits" id="res-traits"></div>
+                <div class="points-earned" id="points-box">
+                    <div class="big">+100</div>
+                    <div class="label">綠點已存入你的帳戶</div>
+                </div>
+                <div class="already-done" id="already-box" style="display:none">
+                    ✓ 你已經領過測驗獎勵了，但歡迎重測看看結果！
+                </div>
+                <div>
+                    <button class="retake-btn" onclick="retakeQuiz()">重新測驗</button>
+                    <button class="home-btn"   onclick="location.href='index.html'">回首頁</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<!-- ── FOOTER（使用共用 .site-footer class） ── -->
+<footer class="site-footer text-center py-4 mt-2">
+    <div class="container">
+        <p class="text-muted small mb-0">&copy; 2026 ESG 商品交易平台</p>
+    </div>
+</footer>
+
+<div id="toast-host" class="toast-container position-fixed bottom-0 end-0 p-3"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/greenmart-core.js"></script>
+<script src="js/greenmart-local.js"></script>
+<script>
+// ═══════════════════════════════════════════════════════════
+//  題目資料
+// ═══════════════════════════════════════════════════════════
+const QUESTIONS = [
+    {
+        text: '週末難得放假，你最想怎麼過？',
+        options: [
+            { text: '去登山或走自然步道，感受大地的力量', scores: { earth:2, root:1 } },
+            { text: '揪朋友辦二手市集或社區清潔活動',       scores: { fire:2,  sun:1  } },
+            { text: '一個人在家研究永續生活相關書籍或影片', scores: { water:2, wind:1 } },
+            { text: '嘗試去探索從未去過的在地小農市集',     scores: { wind:2,  earth:1} },
+        ]
+    },
+    {
+        text: '朋友說要買一件新衣服，你會怎麼建議？',
+        options: [
+            { text: '先去二手店翻翻，說不定有驚喜！',               scores: { root:2, earth:1 } },
+            { text: '選有機棉或公平貿易品牌，雖然貴一點但值得',     scores: { sun:2,  root:1  } },
+            { text: '借我的衣服穿就好了，又不是每天要穿',           scores: { water:2,fire:1  } },
+            { text: '買之前先想想：真的需要嗎？',                   scores: { wind:2, water:1 } },
+        ]
+    },
+    {
+        text: '如果你能為地球做一件事，你最想做什麼？',
+        options: [
+            { text: '在社區種一片小菜園，帶動在地食農',       scores: { root:2, earth:1 } },
+            { text: '發起一場大型淨灘或環保倡議活動',         scores: { fire:2, sun:1   } },
+            { text: '推廣簡約生活，讓大家少買少丟',           scores: { water:2,wind:1  } },
+            { text: '去偏鄉或國際做環境教育志工',             scores: { wind:2, fire:1  } },
+        ]
+    },
+    {
+        text: '看到以下新聞標題，你最想點進去看哪則？',
+        options: [
+            { text: '「台灣農村如何靠傳統智慧對抗氣候變遷」',         scores: { root:2,  earth:1 } },
+            { text: '「年輕人掀起無塑革命，改變零售業生態」',         scores: { fire:2,  sun:1   } },
+            { text: '「極簡主義者的一年：只買 50 樣東西的實驗」',     scores: { water:2, wind:1  } },
+            { text: '「探索南極：科學家眼中正在消失的世界」',         scores: { wind:2,  earth:1 } },
+        ]
+    },
+    {
+        text: '你通常是怎麼影響身邊的人變得更環保的？',
+        options: [
+            { text: '以身作則，默默做，讓他們自己感受到改變', scores: { root:2,  water:1 } },
+            { text: '大聲說出來，積極分享資訊和活動邀請',     scores: { fire:2,  sun:1   } },
+            { text: '分享有趣的數據或研究，用理性說服',       scores: { wind:2,  water:1 } },
+            { text: '一起動手做，比如揪人種菜或自製清潔劑',   scores: { earth:2, root:1  } },
+        ]
+    },
+    {
+        text: '你認為改變世界最重要的第一步是？',
+        options: [
+            { text: '從自己的生活方式改起，每天積累小改變',   scores: { root:2,  earth:1 } },
+            { text: '集結更多人一起，規模才能產生真正影響',   scores: { fire:2,  sun:1   } },
+            { text: '先深入了解問題的根源，再找對策',         scores: { water:2, wind:1  } },
+            { text: '勇敢嘗試新方法，就算失敗也是一種學習',   scores: { wind:2,  fire:1  } },
+        ]
+    },
+];
+
+// ═══════════════════════════════════════════════════════════
+//  結果類型
+// ═══════════════════════════════════════════════════════════
+const TYPES = {
+    root: {
+        emoji: '🌱', name: '根系守護者', subtitle: 'THE ROOT GUARDIAN',
+        desc: '你是大地最穩定的力量。你相信改變從根做起，從日常的飲食、消費到生活習慣，你用持續且踏實的方式守護環境。你不愛高調，卻是周遭人最可靠的永續燈塔。',
+        traits: ['踏實', '堅持', '在地意識', '生活實踐'],
+    },
+    sun: {
+        emoji: '☀️', name: '陽光行動家', subtitle: 'THE SOLAR ACTIVIST',
+        desc: '熱情是你的超能力！你擅長帶動人群、傳遞正能量，相信集體行動才能創造真正的改變。你的笑容和行動力就像陽光，讓身邊的人也跟著燃起永續的熱情。',
+        traits: ['熱情', '行動力', '感染力', '社群意識'],
+    },
+    water: {
+        emoji: '💧', name: '水流思考者', subtitle: 'THE WATER THINKER',
+        desc: '你用清澈的眼光看世界。你不急著行動，而是深思熟慮、耐心觀察，找到最有效的方式。就像水一樣，你能適應各種環境，也能慢慢滲透並帶來深遠的影響。',
+        traits: ['深思', '耐心', '適應力', '系統思維'],
+    },
+    wind: {
+        emoji: '🌬️', name: '風系探索者', subtitle: 'THE WIND EXPLORER',
+        desc: '自由、好奇、充滿創意。你喜歡探索新知、打破框架，對永續議題有獨特視角。你像風一樣無處不在，把新想法帶到每個角落，啟發別人用不同的方式思考環境問題。',
+        traits: ['創意', '好奇心', '開放思想', '跨界連結'],
+    },
+    earth: {
+        emoji: '🪨', name: '大地實踐者', subtitle: 'THE EARTH DOER',
+        desc: '你是動手派的永續英雄。比起說，你更喜歡做。你願意捲起袖子，把理念變成真實的行動，無論是自己種菜、修繕舊物還是組織活動，你的雙手就是改變的起點。',
+        traits: ['實作', '務實', '耐勞', '創造力'],
+    },
+    fire: {
+        emoji: '🔥', name: '火焰創變者', subtitle: 'THE FIRE CHANGEMAKER',
+        desc: '你是永續世界的革命者。你不滿足於小修小補，你想要的是系統性的改變。你敢說真話、敢挑戰舊有框架，用熱血和勇氣點燃周遭的人，一起推動更大格局的改變。',
+        traits: ['勇敢', '革新', '影響力', '大局觀'],
+    },
+};
+
+// ═══════════════════════════════════════════════════════════
+//  遊戲狀態
+// ═══════════════════════════════════════════════════════════
+const QUIZ_DONE_KEY = 'greenmart-quiz-done';
+const OPT_LABELS    = ['A', 'B', 'C', 'D'];
+
+let currentQ    = 0;
+let scores      = { root:0, sun:0, water:0, wind:0, earth:0, fire:0 };
+let selectedIdx = null;
+
+// ═══════════════════════════════════════════════════════════
+//  流程控制
+// ═══════════════════════════════════════════════════════════
+function startQuiz() {
+    document.getElementById('intro-section').style.display = 'none';
+    document.getElementById('quiz-section').style.display  = 'block';
+    currentQ    = 0;
+    scores      = { root:0, sun:0, water:0, wind:0, earth:0, fire:0 };
+    selectedIdx = null;
+    renderQuestion();
+}
+
+function renderQuestion() {
+    const q   = QUESTIONS[currentQ];
+    const num = currentQ + 1;
+    const tot = QUESTIONS.length;
+    const pct = Math.round((currentQ / tot) * 100);
+
+    document.getElementById('progress-bar').style.width  = pct + '%';
+    document.getElementById('progress-text').textContent = `第 ${num} 題，共 ${tot} 題`;
+    document.getElementById('progress-pct').textContent  = pct + '%';
+    document.getElementById('q-num').textContent         = `Question ${num} / ${tot}`;
+    document.getElementById('q-text').textContent        = q.text;
+
+    selectedIdx = null;
+    document.getElementById('next-btn').disabled = true;
+    document.getElementById('next-btn').textContent =
+        currentQ === QUESTIONS.length - 1 ? '查看結果' : '下一題';
+
+    const wrap = document.getElementById('q-options');
+    wrap.innerHTML = '';
+    q.options.forEach((opt, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerHTML = `<span class="opt-label">${OPT_LABELS[i]}</span>${opt.text}`;
+        btn.onclick = () => selectOption(i);
+        wrap.appendChild(btn);
+    });
+
+    const card = document.getElementById('question-card');
+    card.style.animation = 'none';
+    card.offsetHeight;
+    card.style.animation = '';
+}
+
+function selectOption(idx) {
+    selectedIdx = idx;
+    document.querySelectorAll('.option-btn').forEach((b, i) => {
+        b.classList.toggle('selected', i === idx);
+    });
+    document.getElementById('next-btn').disabled = false;
+}
+
+function nextQuestion() {
+    if (selectedIdx === null) return;
+    const opt = QUESTIONS[currentQ].options[selectedIdx];
+    Object.entries(opt.scores).forEach(([k, v]) => { scores[k] = (scores[k] || 0) + v; });
+    currentQ++;
+    if (currentQ < QUESTIONS.length) {
+        renderQuestion();
+    } else {
+        showResult();
+    }
+}
+
+function showResult() {
+    document.getElementById('quiz-section').style.display   = 'none';
+    document.getElementById('result-section').style.display = 'block';
+
+    const best = Object.entries(scores).sort((a, b) => b[1] - a[1])[0][0];
+    const type = TYPES[best];
+
+    document.getElementById('res-emoji').textContent    = type.emoji;
+    document.getElementById('res-type').textContent     = type.name;
+    document.getElementById('res-subtitle').textContent = type.subtitle;
+    document.getElementById('res-desc').textContent     = type.desc;
+
+    const traitsWrap = document.getElementById('res-traits');
+    traitsWrap.innerHTML = type.traits.map(t => `<span class="trait-tag">${t}</span>`).join('');
+
+    const alreadyDone = localStorage.getItem(QUIZ_DONE_KEY) === '1';
+    if (!alreadyDone) {
+        if (window.GreenMartLocal) {
+            GreenMartLocal.setPoints(GreenMartLocal.getPoints() + 100);
+            GreenMartLocal.appendLedger({
+                type: 'bonus', title: '小綠人測驗獎勵',
+                detail: `完成心理測驗，類型：${type.name}`,
+                pointsDelta: 100, creditDelta: 0,
+            });
+        }
+        localStorage.setItem(QUIZ_DONE_KEY, '1');
+        document.getElementById('points-box').style.display  = 'block';
+        document.getElementById('already-box').style.display = 'none';
+    } else {
+        document.getElementById('points-box').style.display  = 'none';
+        document.getElementById('already-box').style.display = 'block';
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function retakeQuiz() {
+    document.getElementById('result-section').style.display = 'none';
+    startQuiz();
+}
+
+// ═══════════════════════════════════════════════════════════
+//  GreenMart navbar 初始化
+// ═══════════════════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', async () => {
+    if (window.GreenMart) {
+        try {
+            const lang = GreenMart.getLang();
+            const t    = await GreenMart.loadTranslations(lang);
+            GreenMart.applyNavLabels(t);
+            GreenMart.wireNavLang();
+            GreenMart.setActiveNav();
+            GreenMart.attachAuthNav(t);
+            if (GreenMart.updateCartBadge) GreenMart.updateCartBadge();
+        } catch(e) { /* 預覽模式跳過 */ }
+    }
+    document.querySelectorAll('[data-set-lang]').forEach(el => {
+        el.addEventListener('click', e => {
+            e.preventDefault();
+            if (window.GreenMart) GreenMart.setLang(el.getAttribute('data-set-lang'));
+        });
+    });
+});
+</script>
+</body>
+</html>
